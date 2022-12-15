@@ -23,28 +23,22 @@ public class ShopCarServiceImpl implements ShopCarService {
     private ShopcarMapper shopcarMapper;
 
     @Override
-    public Boolean addGoodForCar(Integer uid, Integer gid) {
-        Shopcar shopcar = new Shopcar();
-        shopcar.setUid(uid);
-        shopcar.setCid(gid);
+    public Boolean addGoodForCar(Shopcar shopcar) {
+
         ShopcarExample shopcarExample = new ShopcarExample();
         shopcarExample.createCriteria()
-                .andUidEqualTo(uid)
-                .andCidEqualTo(gid);
+                .andUidEqualTo(shopcar.getUid())
+                .andCidEqualTo(shopcar.getCid());
         List<Shopcar> shopcars = shopcarMapper.selectByExample(shopcarExample);
         if (shopcars.size()>0) {
             Shopcar shopcar1 = shopcars.get(0);;
-            shopcar1.setNumber(shopcar1.getNumber() + 1);
+            shopcar1.setNumber(shopcar1.getNumber() + shopcar.getNumber());
             int i = shopcarMapper.updateByPrimaryKeySelective(shopcar1);
             if (i>0) {
                 return true;
             }
         }else {
-            Shopcar shopcar1 = new Shopcar();
-            shopcar1.setCid(gid);
-            shopcar1.setUid(uid);
-            shopcar1.setNumber(1);
-            int insert = shopcarMapper.insert(shopcar1);
+            int insert = shopcarMapper.insert(shopcar);
             if (insert>0) {
                 return true;
             }
@@ -69,5 +63,26 @@ public class ShopCarServiceImpl implements ShopCarService {
         }else {
             return false;
         }
+    }
+
+    @Override
+    public Boolean increase(Integer id) {
+        Shopcar shopcar = shopcarMapper.selectByPrimaryKey(id);
+        shopcar.setNumber(shopcar.getNumber() + 1);
+        int i = shopcarMapper.updateByPrimaryKeySelective(shopcar);
+        return i>0;
+    }
+
+    @Override
+    public Boolean decrease(Integer id) {
+        Shopcar shopcar = shopcarMapper.selectByPrimaryKey(id);
+        int i = 0;
+        if (shopcar.getNumber()-1 == 0) {
+            i = shopcarMapper.deleteByPrimaryKey(id);
+        }else {
+            shopcar.setNumber(shopcar.getNumber() - 1);
+            i = shopcarMapper.updateByPrimaryKeySelective(shopcar);
+        }
+        return i>0;
     }
 }

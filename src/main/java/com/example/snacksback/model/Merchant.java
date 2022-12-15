@@ -13,6 +13,16 @@ public class Merchant implements Serializable {
 
     private String saddress;
 
+    private String oldName;
+
+    public String getOldName() {
+        return oldName;
+    }
+
+    public void setOldName(String oldName) {
+        this.oldName = oldName;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getSid() {
@@ -57,17 +67,13 @@ public class Merchant implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", sid=").append(sid);
-        sb.append(", sname=").append(sname);
-        sb.append(", spasswd=").append(spasswd);
-        sb.append(", sphone=").append(sphone);
-        sb.append(", saddress=").append(saddress);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "Merchant{" +
+                "sid=" + sid +
+                ", sname='" + sname + '\'' +
+                ", spasswd='" + spasswd + '\'' +
+                ", sphone='" + sphone + '\'' +
+                ", saddress='" + saddress + '\'' +
+                ", oldName='" + oldName + '\'' +
+                '}';
     }
 }

@@ -3,6 +3,9 @@ package com.example.snacksback;
 import com.example.snacksback.mapper.*;
 import com.example.snacksback.model.*;
 import com.example.snacksback.service.AdminService;
+import com.example.snacksback.service.GoodService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -32,6 +35,10 @@ class SnacksBackApplicationTests {
 
     @Resource
     private GoodsMapper goodsMapper;
+
+    @Resource
+    private OrderMapper orderMapper;
+
 
 //    @Test
 //    void test() {
@@ -134,5 +141,51 @@ class SnacksBackApplicationTests {
 ////        System.out.println(goods.toString());
 ////        Merchant merchant = merchantMapper.selectByPrimaryKey(1);
 ////        System.out.println(merchant.toString());
+//    }
+
+//    @Test
+//    void test565678() {
+//        PageHelper.startPage(2, 6);
+//        List<Goods> allGoods = goodsMapper.findAllGoods();
+//        PageInfo<Goods> pageInfo = new PageInfo<>(allGoods, 2);
+//        System.out.println(pageInfo.toString());
+//    }
+
+//    @Test
+//    void test76878() {
+//        Consumer consumer = consumerMapper.selectByPrimaryKey(1);
+//        System.out.println(consumer.toString());
+//        List<Orders> ordersList = orderMapper.findAll();
+//        System.out.println(ordersList.get(0).toString());
+//    }
+
+//    @Test
+//    void test676757() {
+//        List<Orders> orders = orderMapper.findBySidAndStatus(null, 1);
+//        orders.forEach(orders1 -> {
+//            System.out.println(orders1.toString());
+//        });
+//    }
+
+//    @Test
+//    void test678800() {
+//        List<Orders> orders = orderMapper.findBySidAndStatus(2, 0);
+//        orders.forEach(order -> {
+//            System.out.println(order.toString());
+//        });
+//    }
+
+//    @Test
+//    void test90786870() {
+//        List<Image> images = imageMapper.selectByGid(3);
+//        images.forEach(image -> {
+//            System.out.println(image.toString());
+//        });
+//    }
+
+//    @Test
+//    void test456u996() {
+//        long l = System.currentTimeMillis();
+//        System.out.println(l);
 //    }
 }

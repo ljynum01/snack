@@ -1,8 +1,10 @@
 package com.example.snacksback.service.impl;
 
 import com.example.snacksback.mapper.MerchantMapper;
+import com.example.snacksback.mapper.UserRoleMapper;
 import com.example.snacksback.model.Merchant;
 import com.example.snacksback.model.MerchantExample;
+import com.example.snacksback.model.UserRole;
 import com.example.snacksback.model.UserRoleExample;
 import com.example.snacksback.service.MerchantService;
 import com.example.snacksback.service.UserService;
@@ -16,6 +18,9 @@ import java.util.List;
 public class MerchantServiceImpl implements MerchantService {
     @Resource
     private MerchantMapper merchantMapper;
+    
+    @Resource
+    private UserRoleMapper userRoleMapper;
 
     @Resource
     private UserService userService;
@@ -74,5 +79,19 @@ public class MerchantServiceImpl implements MerchantService {
                 .andSnameEqualTo(username);
         List<Merchant> merchants = merchantMapper.selectByExample(merchantExample);
         return merchants.get(0);
+    }
+
+    @Override
+    public Boolean update2(Merchant merchant) {
+        UserRoleExample userRoleExample = new UserRoleExample();
+        userRoleExample.createCriteria()
+                .andUsernameEqualTo(merchant.getOldName());
+        List<UserRole> userRoles = userRoleMapper.selectByExample(userRoleExample);
+        UserRole userRole = userRoles.get(0);
+        userRole.setUsername(merchant.getSname());
+        int i = userRoleMapper.updateByPrimaryKeySelective(userRole);
+
+        int i1 = merchantMapper.updateByPrimaryKeySelective(merchant);
+        return i + i1 >2;
     }
 }

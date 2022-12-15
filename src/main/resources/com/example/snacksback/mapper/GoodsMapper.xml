@@ -82,7 +82,7 @@
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null">
-      order by ${orderByClause}
+      orders by ${orderByClause}
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -248,12 +248,16 @@
     <result property="price" column="price"/>
     <result property="inventory" column="inventory"/>
     <result property="sid" column="sid"/>
+    <association property="type"
+                 select="com.example.snacksback.mapper.TypeMapper.selectByPrimaryKey"
+                 column="lid"/>
+    <collection property="imageList"
+                 select="com.example.snacksback.mapper.ImageMapper.selectByGid"
+                 column="cid"/>
     <collection property="merchant"
                 select="com.example.snacksback.mapper.MerchantMapper.selectByPrimaryKey"
                 column="sid"/>
-    <collection property="imgUrl"
-                select="com.example.snacksback.mapper.ImageMapper.selectByGid"
-                column="cid"/>
+
     <collection property="commentList"
                 select="com.example.snacksback.mapper.CommentMapper.selectByCid"
                 column="cid"/>
@@ -263,7 +267,12 @@
   </select>
 
   <select id="findGoodsBySid" resultMap="findGoodsAndImage">
-    select * from goods where sid = #{sid}
+    select * from goods
+    <where>
+      <if test="sid!=null and sid!=''">
+        and sid = #{sid}
+      </if>
+    </where>
   </select>
 
   <select id="findGoodsByLid" resultMap="findGoodsAndImage">

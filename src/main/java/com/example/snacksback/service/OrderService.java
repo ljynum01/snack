@@ -1,19 +1,24 @@
 package com.example.snacksback.service;
 
-import com.example.snacksback.model.Order;
+import com.example.snacksback.model.Orders;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
 public interface OrderService {
-    public List<Order> selectAllOrder();
+    public PageInfo<Orders> findAllOrder(Integer pageNum, Integer pageSize);
 
-    public List<Order> findAllBySid(Integer sid);
+    public List<Orders> findAllBySid(Integer sid);
 
     public Boolean deleteById(Integer id);
 
-    public List<Order> findByUid(Integer uid);
+    public List<Orders> findByUid(Integer uid);
 
     public Boolean updateStatus(Integer id, Integer status);
 
-    public Boolean createOrder(Order order);
+    public Boolean createOrder(Orders orders);
+
+    public PageInfo<Orders> findAllByStatus(Integer pageNum, Integer pageSize, Integer status, Integer sid);
+
+    public Boolean createOrders (Orders orders);
 }

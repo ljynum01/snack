@@ -1,8 +1,11 @@
 package com.example.snacksback.service.impl;
 
 import com.example.snacksback.mapper.AdminMapper;
+import com.example.snacksback.mapper.UserRoleMapper;
 import com.example.snacksback.model.Admin;
 import com.example.snacksback.model.AdminExample;
+import com.example.snacksback.model.UserRole;
+import com.example.snacksback.model.UserRoleExample;
 import com.example.snacksback.service.AdminService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,9 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
     @Resource
     private AdminMapper adminMapper;
+
+    @Resource
+    private UserRoleMapper userRoleMapper;
 
     @Override
     public Boolean addAdmin(Admin admin) {
@@ -47,6 +53,20 @@ public class AdminServiceImpl implements AdminService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Boolean updateAdmin2(Admin admin) {
+        UserRoleExample userRoleExample = new UserRoleExample();
+        userRoleExample.createCriteria()
+                .andUsernameEqualTo(admin.getOldName());
+        List<UserRole> userRoles = userRoleMapper.selectByExample(userRoleExample);
+        UserRole userRole = userRoles.get(0);
+        userRole.setUsername(admin.getAname());
+        int i = userRoleMapper.updateByPrimaryKeySelective(userRole);
+        int i1 = adminMapper.updateByPrimaryKeySelective(admin);
+
+        return i+i1>2;
     }
 
     @Override

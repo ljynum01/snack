@@ -1,7 +1,8 @@
 package com.example.snacksback.controller;
 
-import com.example.snacksback.model.Order;
+import com.example.snacksback.model.Orders;
 import com.example.snacksback.service.OrderService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ public class OrdersController {
 
     @ApiOperation("根据商家id查询")
     @GetMapping("/findBySid")
-    public List<Order> findBySid(@RequestParam("sid") Integer sid) {
-        List<Order> allBySid = orderService.findAllBySid(sid);
+    public List<Orders> findBySid(@RequestParam("sid") Integer sid) {
+        List<Orders> allBySid = orderService.findAllBySid(sid);
         return allBySid;
     }
 
@@ -32,22 +33,48 @@ public class OrdersController {
 
     @ApiOperation("根据消费者id查询")
     @GetMapping("/findByUid")
-    public List<Order> findByUid(@RequestParam("uid") Integer uid) {
-        List<Order> byUid = orderService.findByUid(uid);
+    public List<Orders> findByUid(@RequestParam("uid") Integer uid) {
+        List<Orders> byUid = orderService.findByUid(uid);
         return byUid;
     }
 
     @ApiOperation("更改订单状态")
     @PostMapping("/updateStatus")
-    public boolean updateStatus(@RequestBody Order order) {
-        Boolean aBoolean = orderService.updateStatus(order.getDid(), order.getStatus());
+    public boolean updateStatus(@RequestBody Orders orders) {
+        Boolean aBoolean = orderService.updateStatus(orders.getDid(), orders.getStatus());
         return aBoolean;
     }
 
-    @ApiOperation("创建订单")
-    @PostMapping("/createOrder")
-    public Boolean createOrder(@RequestBody Order order) {
-        Boolean aBoolean = orderService.createOrder(order);
-        return aBoolean;
+//    @ApiOperation("创建订单")
+//    @PostMapping("/createOrder")
+//    public Boolean createOrder(@RequestBody Orders orders) {
+//        Boolean aBoolean = orderService.createOrder(orders);
+//        return aBoolean;
+//    }
+
+    @ApiOperation("查看所有订单")
+    @GetMapping("/findAll")
+    public PageInfo<Orders> findAll(@RequestParam(defaultValue = "1") Integer pageNum,
+                                    @RequestParam(defaultValue = "5") Integer pageSize) {
+        PageInfo<Orders> allOrder = orderService.findAllOrder(pageNum, pageSize);
+        return allOrder;
+    }
+
+    @ApiOperation("根据订单状态查询")
+    @GetMapping("/findAllByStatus")
+    public PageInfo<Orders> findAllByStatus(@RequestParam(defaultValue = "1") Integer pageNum,
+                                            @RequestParam(defaultValue = "5") Integer pageSize,
+                                            Integer status,
+                                            Integer sid) {
+        PageInfo<Orders> pageInfo = orderService.findAllByStatus(pageNum, pageSize, status, sid);
+        return pageInfo;
+    }
+
+    @ApiOperation("生成订单")
+    @PostMapping("/createOrders")
+    public Boolean createOrders(@RequestBody Orders orders) {
+        System.out.println(orders);
+        Boolean orders1 = orderService.createOrders(orders);
+        return null;
     }
 }

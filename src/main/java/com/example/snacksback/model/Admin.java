@@ -11,6 +11,16 @@ public class Admin implements Serializable {
 
     private String apasswd;
 
+    private String oldName;
+
+    public String getOldName() {
+        return oldName;
+    }
+
+    public void setOldName(String oldName) {
+        this.oldName = oldName;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getAid() {

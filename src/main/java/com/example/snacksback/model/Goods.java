@@ -20,9 +20,13 @@ public class Goods implements Serializable {
 
     private Merchant merchant;
 
-    private List<Image> imgUrl;
+    private String imgUrl;
+
+    private List<Image> imageList;
 
     private List<Comment> commentList;
+
+    private Type type;
 
     public Merchant getMerchant() {
         return merchant;
@@ -90,11 +94,11 @@ public class Goods implements Serializable {
         this.lid = lid;
     }
 
-    public List<Image> getImgUrl() {
+    public String getImgUrl() {
         return imgUrl;
     }
 
-    public void setImgUrl(List<Image> imgUrl) {
+    public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
 
@@ -104,6 +108,22 @@ public class Goods implements Serializable {
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
+    }
+
+    public List<Image> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(List<Image> imageList) {
+        this.imageList = imageList;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     @Override
@@ -117,8 +137,10 @@ public class Goods implements Serializable {
                 ", inventory=" + inventory +
                 ", lid=" + lid +
                 ", merchant=" + merchant +
-                ", imgUrl=" + imgUrl +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", imageList=" + imageList +
                 ", commentList=" + commentList +
+                ", type=" + type +
                 '}';
     }
 }

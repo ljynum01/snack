@@ -79,7 +79,7 @@
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null">
-      order by ${orderByClause}
+      orders by ${orderByClause}
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -199,7 +199,7 @@
     <result property="uid" column="uid"/>
     <result property="number" column="number"/>
     <collection property="goods"
-                select="com.example.snacksback.mapper.GoodsMapper.selectByPrimaryKey"
+                select="com.example.snacksback.mapper.GoodsMapper.findGoodsByid"
                 column="cid"/>
   </resultMap>
 

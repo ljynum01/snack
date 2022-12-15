@@ -78,7 +78,7 @@
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null">
-      order by ${orderByClause}
+      orders by ${orderByClause}
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -180,4 +180,13 @@
   <select id="selectByGid" resultMap="BaseResultMap">
     select * from image where cid = #{cid}
   </select>
+
+  <update id="updateImage" parameterType="com.example.snacksback.model.Image">
+    update image set image = #{image}
+    <where>
+      <if test="cid!=null">
+        cid = #{cid}
+      </if>
+    </where>
+  </update>
 </mapper>

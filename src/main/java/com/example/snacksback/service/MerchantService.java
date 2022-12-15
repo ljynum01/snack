@@ -16,4 +16,6 @@ public interface MerchantService {
     public Merchant findById(Integer id);
 
     public Merchant findByName(String username);
+
+    public Boolean update2(Merchant merchant);
 }

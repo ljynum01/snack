@@ -13,6 +13,8 @@ public interface AdminService {
 
     public Boolean updateAdmin(Admin admin);
 
+    public Boolean updateAdmin2(Admin admin);
+
     public Admin selectById(Integer id);
 
     public Admin selectByName(String username);

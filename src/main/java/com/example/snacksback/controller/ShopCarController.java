@@ -4,10 +4,7 @@ import com.example.snacksback.model.Shopcar;
 import com.example.snacksback.service.ShopCarService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,10 +17,9 @@ public class ShopCarController {
     private ShopCarService shopCarService;
 
     @ApiOperation("添加商品到购物车")
-    @GetMapping("/addGoodForCar")
-    public Boolean addGoodForCar(@RequestParam("uid") Integer uid,
-                                 @RequestParam("gid") Integer gid) {
-        Boolean aBoolean = shopCarService.addGoodForCar(uid, gid);
+    @PostMapping("/addGoodForCar")
+    public Boolean addGoodForCar(@RequestBody Shopcar shopcar) {
+        Boolean aBoolean = shopCarService.addGoodForCar(shopcar);
         return aBoolean;
     }
 
@@ -39,5 +35,19 @@ public class ShopCarController {
     public Boolean deleteById(@RequestParam("id") Integer id) {
         Boolean aBoolean = shopCarService.deleteOneById(id);
         return aBoolean;
+    }
+
+    @ApiOperation("购物车商品数量+1")
+    @GetMapping("/increase")
+    public Boolean increase(@RequestParam("id") Integer id) {
+        Boolean increase = shopCarService.increase(id);
+        return increase;
+    }
+
+    @ApiOperation("购物车商品数量-1")
+    @GetMapping("/decrease")
+    public Boolean decrease(@RequestParam("id") Integer id) {
+        Boolean decrease = shopCarService.decrease(id);
+        return decrease;
     }
 }

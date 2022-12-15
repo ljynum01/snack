@@ -1,10 +1,14 @@
 package com.example.snacksback.service.impl;
 
+import com.example.snacksback.common.CommonResult;
+import com.example.snacksback.mapper.CommentMapper;
 import com.example.snacksback.mapper.GoodsMapper;
 import com.example.snacksback.mapper.ImageMapper;
+import com.example.snacksback.model.CommentExample;
 import com.example.snacksback.model.Goods;
 import com.example.snacksback.service.GoodService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,25 +22,32 @@ public class GoodServiceImpl implements GoodService {
     @Resource
     private ImageMapper imageMapper;
 
+    @Resource
+    private CommentMapper commentMapper;
+
     @Override
-    public List<Goods> findAllGood(Integer pageNum, Integer pageSize) {
+    public PageInfo<Goods> findAllGood(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Goods> allGoods = goodsMapper.findAllGoods();
-        return allGoods;
+        PageInfo<Goods> pageInfo = new PageInfo<>(allGoods, pageNum);
+        System.out.println(pageInfo.toString());
+        return pageInfo;
     }
 
     @Override
-    public List<Goods> findGoodsBySid(Integer pageNum, Integer pageSize, Integer sid) {
+    public PageInfo<Goods> findGoodsBySid(Integer pageNum, Integer pageSize, Integer sid) {
         PageHelper.startPage(pageNum, pageSize);
         List<Goods> goodsBySid = goodsMapper.findGoodsBySid(sid);
-        return goodsBySid;
+        PageInfo<Goods> pageInfo = new PageInfo<>(goodsBySid, pageNum);
+        return pageInfo;
     }
 
     @Override
-    public List<Goods> findGoodsByLid(Integer pageNum, Integer pageSize, Integer lid) {
+    public PageInfo<Goods> findGoodsByLid(Integer pageNum, Integer pageSize, Integer lid) {
         PageHelper.startPage(pageNum, pageSize);
         List<Goods> goodsByLid = goodsMapper.findGoodsByLid(lid);
-        return goodsByLid;
+        PageInfo<Goods> pageInfo = new PageInfo<>(goodsByLid, pageNum);
+        return pageInfo;
     }
 
     @Override
@@ -48,13 +59,23 @@ public class GoodServiceImpl implements GoodService {
     @Override
     public Boolean deleteGoodsById(Integer id) {
         int i = goodsMapper.deleteByPrimaryKey(id);
+        CommentExample commentExample = new CommentExample();
+        commentExample.createCriteria()
+                .andCidEqualTo(id);
+        int i1 = commentMapper.deleteByExample(commentExample);
         return i>0?true:false;
     }
 
     @Override
     public Boolean addGoods(Goods goods) {
-        int insert = goodsMapper.insert(goods);
+        int insert = goodsMapper.insertSelective(goods);
 
         return insert>0?true:false;
+    }
+
+    @Override
+    public Boolean updateGoods(Goods goods) {
+        int i = goodsMapper.updateByPrimaryKey(goods);
+        return i>0;
     }
 }

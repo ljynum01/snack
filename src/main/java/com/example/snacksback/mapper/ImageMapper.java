@@ -30,4 +30,6 @@ public interface ImageMapper {
 
     List<Image> selectByGid(Integer cid);
 
+    int updateImage(Image record);
+
 }

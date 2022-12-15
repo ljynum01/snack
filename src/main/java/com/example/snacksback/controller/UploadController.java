@@ -27,7 +27,7 @@ public class UploadController {
             String vuePath = " @/assets/";
             try {
                 file.transferTo(new File(dirPath + fileName));
-                imageList.add(vuePath + fileName);
+                imageList.add(fileName);
             }catch (Exception e) {
                 e.printStackTrace();
                 return null;

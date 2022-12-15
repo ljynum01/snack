@@ -86,4 +86,12 @@ public class MerchantController {
         Boolean aBoolean = merchantService.updateOne(merchant);
         return aBoolean;
     }
+
+    @ApiOperation("修改2")
+    @PostMapping("/update2")
+    public Boolean update2(@RequestBody Merchant merchant) {
+        System.out.println(merchant.toString());
+        Boolean aBoolean = merchantService.update2(merchant);
+        return aBoolean;
+    }
 }

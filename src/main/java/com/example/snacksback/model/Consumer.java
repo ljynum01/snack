@@ -15,6 +15,8 @@ public class Consumer implements Serializable {
 
     private Integer role;
 
+    private String oldName;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getUid() {
@@ -65,20 +67,24 @@ public class Consumer implements Serializable {
         this.role = role;
     }
 
+    public String getOldName() {
+        return oldName;
+    }
+
+    public void setOldName(String oldName) {
+        this.oldName = oldName;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", uid=").append(uid);
-        sb.append(", uname=").append(uname);
-        sb.append(", upasswd=").append(upasswd);
-        sb.append(", uphone=").append(uphone);
-        sb.append(", uaddress=").append(uaddress);
-        sb.append(", role=").append(role);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "Consumer{" +
+                "uid=" + uid +
+                ", uname='" + uname + '\'' +
+                ", upasswd='" + upasswd + '\'' +
+                ", uphone='" + uphone + '\'' +
+                ", uaddress='" + uaddress + '\'' +
+                ", role=" + role +
+                ", oldName='" + oldName + '\'' +
+                '}';
     }
 }

@@ -1,34 +1,40 @@
 package com.example.snacksback.mapper;
 
-import com.example.snacksback.model.Order;
-import com.example.snacksback.model.OrderExample;
+import com.example.snacksback.model.Orders;
+import com.example.snacksback.model.OrdersExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface OrderMapper {
-    long countByExample(OrderExample example);
+    long countByExample(OrdersExample example);
 
-    int deleteByExample(OrderExample example);
+    int deleteByExample(OrdersExample example);
 
     int deleteByPrimaryKey(Integer did);
 
-    int insert(Order record);
+    int insert(Orders record);
 
-    int insertSelective(Order record);
+    int insertSelective(Orders record);
 
-    List<Order> selectByExample(OrderExample example);
+    List<Orders> selectByExample(OrdersExample example);
 
-    Order selectByPrimaryKey(Integer did);
+    Orders selectByPrimaryKey(Integer did);
 
-    int updateByExampleSelective(@Param("record") Order record, @Param("example") OrderExample example);
+    int updateByExampleSelective(@Param("record") Orders record, @Param("example") OrdersExample example);
 
-    int updateByExample(@Param("record") Order record, @Param("example") OrderExample example);
+    int updateByExample(@Param("record") Orders record, @Param("example") OrdersExample example);
 
-    int updateByPrimaryKeySelective(Order record);
+    int updateByPrimaryKeySelective(Orders record);
 
-    int updateByPrimaryKey(Order record);
+    int updateByPrimaryKey(Orders record);
 
-    List<Order> findAllBySid(Integer sdi);
+    List<Orders> findAllBySid(Integer sid);
 
-    List<Order> findAllByUid(Integer sdi);
+    List<Orders> findAllByUid(Integer sid);
+
+    List<Orders> findAll();
+
+    List<Orders> findBySidAndStatus(Integer sid, Integer status);
+
 }

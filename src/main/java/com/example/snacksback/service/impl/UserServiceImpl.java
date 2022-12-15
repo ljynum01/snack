@@ -109,10 +109,11 @@ public class UserServiceImpl implements UserService {
             Consumer consumer = new Consumer();
             consumer.setUname(username);
             consumer.setUpasswd(password);
+            consumer.setRole(3);
             int insert = consumerMapper.insert(consumer);
             UserRole userRole = new UserRole();
             userRole.setUsername(username);
-            userRole.setRid(2);
+            userRole.setRid(3);
             int insert1 = userRoleMapper.insert(userRole);
             return insert+insert1 == 2;
         }

@@ -3,12 +3,14 @@ package com.example.snacksback.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Order implements Serializable {
+public class Orders implements Serializable {
     private Integer did;
 
     private Integer cid;
 
     private Integer uid;
+
+    private Integer sid;
 
     private Date dtime;
 
@@ -21,6 +23,8 @@ public class Order implements Serializable {
     private Goods goods;
 
     private Merchant merchant;
+
+    private Consumer consumer;
 
     private static final long serialVersionUID = 1L;
 
@@ -80,6 +84,14 @@ public class Order implements Serializable {
         this.number = number;
     }
 
+    public Integer getSid() {
+        return sid;
+    }
+
+    public void setSid(Integer sid) {
+        this.sid = sid;
+    }
+
     public Goods getGoods() {
         return goods;
     }
@@ -96,18 +108,28 @@ public class Order implements Serializable {
         this.merchant = merchant;
     }
 
+    public Consumer getConsumer() {
+        return consumer;
+    }
+
+    public void setConsumer(Consumer consumer) {
+        this.consumer = consumer;
+    }
+
     @Override
     public String toString() {
-        return "Order{" +
+        return "Orders{" +
                 "did=" + did +
                 ", cid=" + cid +
                 ", uid=" + uid +
+                ", sid=" + sid +
                 ", dtime=" + dtime +
                 ", dstateid=" + dstateid +
                 ", status=" + status +
                 ", number=" + number +
                 ", goods=" + goods +
                 ", merchant=" + merchant +
+                ", consumer=" + consumer +
                 '}';
     }
 }

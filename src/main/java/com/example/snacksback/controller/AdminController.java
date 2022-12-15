@@ -84,4 +84,12 @@ public class AdminController {
         return admin;
     }
 
+    @ApiOperation("修改管理员信息")
+    @PostMapping("/update2")
+    public Boolean update(@RequestBody Admin admin) {
+        System.out.println(admin.toString());
+        Boolean aBoolean = adminService.updateAdmin2(admin);
+        return aBoolean;
+    }
+
 }
